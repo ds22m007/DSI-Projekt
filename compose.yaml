@@ -1,0 +1,64 @@
+version: '3'
+services:
+  jupyter:
+    image: jupyter/all-spark-notebook:python-3.10.6
+    ports:
+      - "4040:4040"
+      - "8889:8888"
+    environment:
+      - JUPYTER_TOKEN=hi
+    volumes:
+      - ./work:/home/jovyan/work
+    networks:
+      - spark-network
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CREATE_TOPICS=stock:1:1,tweets:1:1
+    networks:
+      - spark-network
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+    networks:
+      - spark-network
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - "8086:8086"
+      - "8083:8083"
+    environment:
+      - INFLUXDB_HTTP_FLUX_ENABLED=true
+      - INFLUXDB_DB=DSI_Project
+    networks:
+      - spark-network
+    # Mount for influxdb data directory and configuration - /home/svl/influxdb2:/var/lib/influxdb2:rw
+    volumes:
+      - ./influxdb2:/var/lib/influxdb2:rw
+
+
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge
