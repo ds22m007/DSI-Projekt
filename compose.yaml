@@ -1,5 +1,6 @@
 version: '3'
 services:
+  # Jupiter Notebook Container for Spark
   jupyter:
     image: jupyter/all-spark-notebook:python-3.10.6
     ports:
@@ -11,7 +12,7 @@ services:
       - ./work:/home/jovyan/work
     networks:
       - spark-network
-
+  # Kafka and Zookeeper Container for streaming data from Twitter and Stock API
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -33,6 +34,7 @@ services:
     networks:
       - spark-network
 
+  # InfluxDB Container for storing data
   influxdb:
     image: influxdb:latest
     ports:
@@ -47,8 +49,7 @@ services:
     volumes:
       - ./influxdb2:/var/lib/influxdb2:rw
 
-
-
+  # Grafana Container for visualizing data
   grafana:
     image: grafana/grafana
     ports:
