@@ -4,6 +4,10 @@ von Dominik Meisel, Andreas Stern und Samuel Pernthaler.
 # Architektur
 [![Architektur](https://raw.githubusercontent.com/ds22m007/DSI-Projekt/main/dsi_architecture.drawio.png))
 
+Datenquellen sind die Twitter-Api & Aktienkurse von Tesla (Yahoo Finance)
+
+Diese werden in Kafka geschrieben und mit Apache Spark (Streaming) aggregiert in eine Influx DB geschrieben.
+Zur Visualisierung wird Grafana verwendet!
 
 ## Dashboard für Aktienkurse
 Es soll ein Dashboard geschaffen werden, das TSLA Aktienkurse in Relation zu Daten von Twitter Inc. zeigt. Dazu werden Kursdaten der TSLA-Aktie aus vergangenen Jahren verwendet.
