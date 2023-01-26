@@ -2,7 +2,7 @@
 von Dominik Meisel, Andreas Stern und Samuel Pernthaler.
 
 # Architektur
-[![Architektur](https://raw.githubusercontent.com/ds22m007/DSI-Projekt/main/dsi_architecture.drawio.png))
+![Architektur](https://raw.githubusercontent.com/ds22m007/DSI-Projekt/main/dsi_architecture.drawio.png)
 
 Datenquellen sind die Twitter-Api & Aktienkurse von Tesla (Yahoo Finance)
 
